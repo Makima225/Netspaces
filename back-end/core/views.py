@@ -19,6 +19,13 @@ class UserRegisterView(generics.CreateAPIView):
         # Vous pouvez éventuellement personnaliser la création de l'utilisateur ici
         serializer.save()
 
+class CurrentUserView(generics.RetrieveAPIView):
+    serializer_class = UserRegisterSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        # Retourne l'utilisateur actuellement connecté
+        return self.request.user
 
 
 class ArticleCreateView(generics.CreateAPIView):
